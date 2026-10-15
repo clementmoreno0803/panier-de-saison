@@ -1,0 +1,508 @@
+{
+ "dateDebut": "2026-10-15",
+ "sansLait": true,
+ "personnes": 2,
+ "recettes": [
+  {
+   "id": "r1",
+   "titre": "Curry express de courge, champignons et épinards",
+   "temps": 15,
+   "categorie": "vegan",
+   "legumes": [
+    "courge butternut",
+    "champignons",
+    "épinard"
+   ],
+   "ingredients": [
+    {
+     "nom": "courge butternut",
+     "qte": "200 g"
+    },
+    {
+     "nom": "champignons de Paris",
+     "qte": "125 g"
+    },
+    {
+     "nom": "jeunes pousses d'épinard",
+     "qte": "2 poignées"
+    },
+    {
+     "nom": "lait de coco",
+     "qte": "20 cl"
+    },
+    {
+     "nom": "pâte de curry rouge",
+     "qte": "1 c. à soupe"
+    },
+    {
+     "nom": "oignon",
+     "qte": "1"
+    },
+    {
+     "nom": "riz basmati",
+     "qte": "150 g"
+    },
+    {
+     "nom": "huile",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Lancer la cuisson du riz.",
+    "Couper la courge en petits dés (1 cm) et émincer oignon et champignons.",
+    "Faire revenir l'oignon et la pâte de curry 1 min dans l'huile, ajouter courge et champignons, 3 min.",
+    "Verser le lait de coco, couvrir et cuire 8 min jusqu'à ce que la courge soit tendre.",
+    "Ajouter les épinards hors du feu, servir avec le riz."
+   ],
+   "attention": "",
+   "source": {
+    "nom": "Demotivateur",
+    "url": "https://www.demotivateur.fr/food/recette/curry-de-legumes-express-2931"
+   }
+  },
+  {
+   "id": "r2",
+   "titre": "Dahl de lentilles corail aux épinards",
+   "temps": 25,
+   "categorie": "vegan",
+   "legumes": [
+    "épinard",
+    "carotte"
+   ],
+   "ingredients": [
+    {
+     "nom": "lentilles corail",
+     "qte": "150 g"
+    },
+    {
+     "nom": "épinards frais",
+     "qte": "100 g"
+    },
+    {
+     "nom": "carotte",
+     "qte": "1"
+    },
+    {
+     "nom": "oignon",
+     "qte": "1"
+    },
+    {
+     "nom": "ail",
+     "qte": "1 gousse"
+    },
+    {
+     "nom": "gingembre frais",
+     "qte": "2 cm"
+    },
+    {
+     "nom": "lait de coco",
+     "qte": "10 cl"
+    },
+    {
+     "nom": "tomates concassées",
+     "qte": "200 g"
+    },
+    {
+     "nom": "cumin, curcuma, garam masala",
+     "placard": true
+    },
+    {
+     "nom": "huile",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Faire revenir oignon, ail, gingembre et la carotte râpée avec les épices 2 min.",
+    "Ajouter les lentilles rincées, les tomates et 25 cl d'eau, mijoter 15 min à couvert.",
+    "Ajouter épinards et lait de coco, cuire 5 min.",
+    "Servir avec du riz ou un filet de citron."
+   ],
+   "attention": "",
+   "source": {
+    "nom": "24matins",
+    "url": "https://www.24matins.fr/dahl-de-lentilles-le-detail-qui-change-vraiment-la-texture-finale-1422230"
+   }
+  },
+  {
+   "id": "r3",
+   "titre": "Salade crue betterave, carotte, pomme et noix",
+   "temps": 10,
+   "categorie": "vegan",
+   "legumes": [
+    "betterave",
+    "carotte"
+   ],
+   "ingredients": [
+    {
+     "nom": "betterave crue",
+     "qte": "1"
+    },
+    {
+     "nom": "carotte",
+     "qte": "2"
+    },
+    {
+     "nom": "pomme",
+     "qte": "1"
+    },
+    {
+     "nom": "cerneaux de noix",
+     "qte": "40 g"
+    },
+    {
+     "nom": "citron",
+     "qte": "1"
+    },
+    {
+     "nom": "huile d'olive",
+     "placard": true
+    },
+    {
+     "nom": "sel",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Éplucher et râper betterave, carottes et pomme.",
+    "Assaisonner avec huile d'olive, jus de citron et sel.",
+    "Parsemer de noix concassées. Ajouter des pois chiches ou un œuf dur pour en faire un plat complet."
+   ],
+   "attention": "",
+   "source": {
+    "nom": "Ideoz",
+    "url": "https://voyages.ideoz.fr/salade-de-betteraves-carottes-noix-recette-des-balkans/"
+   }
+  },
+  {
+   "id": "r4",
+   "titre": "Champignons à la persillade et œufs au plat",
+   "temps": 15,
+   "categorie": "végétarien",
+   "legumes": [
+    "champignons"
+   ],
+   "ingredients": [
+    {
+     "nom": "champignons de Paris",
+     "qte": "400 g"
+    },
+    {
+     "nom": "œufs",
+     "qte": "4"
+    },
+    {
+     "nom": "persil plat",
+     "qte": "1 bouquet"
+    },
+    {
+     "nom": "ail",
+     "qte": "2 gousses"
+    },
+    {
+     "nom": "pain de campagne",
+     "qte": "4 tranches"
+    },
+    {
+     "nom": "huile d'olive",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Couper les champignons et les saisir à feu vif dans une poêle sèche pour évaporer leur eau.",
+    "Ajouter l'huile d'olive, l'ail et le persil hachés, faire dorer 3 min.",
+    "Cuire les œufs au plat à côté et servir sur le pain grillé."
+   ],
+   "attention": "Pain : prendre un pain de campagne au levain, le pain de mie contient souvent du lait.",
+   "source": {
+    "nom": "Île aux épices",
+    "url": "https://ileauxepices.com/blog/2013/01/12/recette-des-champignons-a-la-persillade/wpid1122/"
+   }
+  },
+  {
+   "id": "r5",
+   "titre": "Poêlée de nouilles au brocoli",
+   "temps": 25,
+   "categorie": "végétarien",
+   "legumes": [
+    "brocoli",
+    "carotte"
+   ],
+   "ingredients": [
+    {
+     "nom": "nouilles chinoises",
+     "qte": "200 g"
+    },
+    {
+     "nom": "brocoli",
+     "qte": "1 petit"
+    },
+    {
+     "nom": "carotte",
+     "qte": "1"
+    },
+    {
+     "nom": "œufs",
+     "qte": "2"
+    },
+    {
+     "nom": "sauce soja",
+     "qte": "3 c. à soupe"
+    },
+    {
+     "nom": "gingembre frais",
+     "qte": "2 cm"
+    },
+    {
+     "nom": "huile de sésame",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Cuire les nouilles selon le paquet, égoutter.",
+    "Faire sauter les fleurettes de brocoli et la carotte en bâtonnets 5 min au wok.",
+    "Pousser les légumes, brouiller les œufs dans le wok.",
+    "Ajouter nouilles, gingembre et sauce soja, sauter 2 min."
+   ],
+   "attention": "",
+   "source": {
+    "nom": "WW",
+    "url": "https://www.weightwatchers.com/ch/fr/recette/pole-de-nouilles-au-brocoli/5f46065c1917272fa051e549"
+   }
+  },
+  {
+   "id": "r6",
+   "titre": "Velouté de potimarron coco-gingembre",
+   "temps": 25,
+   "categorie": "vegan",
+   "legumes": [
+    "potimarron"
+   ],
+   "ingredients": [
+    {
+     "nom": "potimarron",
+     "qte": "1 (environ 800 g)"
+    },
+    {
+     "nom": "oignon",
+     "qte": "1"
+    },
+    {
+     "nom": "gingembre frais",
+     "qte": "3 cm"
+    },
+    {
+     "nom": "lait de coco",
+     "qte": "20 cl"
+    },
+    {
+     "nom": "bouillon de légumes",
+     "qte": "1 cube"
+    },
+    {
+     "nom": "graines de courge",
+     "qte": "1 poignée"
+    },
+    {
+     "nom": "huile",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Couper le potimarron en cubes avec la peau (pas besoin de l'éplucher).",
+    "Faire suer l'oignon et le gingembre, ajouter le potimarron et couvrir d'eau avec le bouillon.",
+    "Cuire 15 min, mixer avec le lait de coco.",
+    "Servir avec les graines de courge grillées."
+   ],
+   "attention": "Bouillon cube : vérifier l'étiquette, certains contiennent du lactose ou des protéines de lait.",
+   "source": null
+  },
+  {
+   "id": "r7",
+   "titre": "Chou-fleur sauté façon riz cantonais",
+   "temps": 20,
+   "categorie": "viande",
+   "legumes": [
+    "chou-fleur",
+    "poireau",
+    "carotte"
+   ],
+   "ingredients": [
+    {
+     "nom": "chou-fleur",
+     "qte": "1/2"
+    },
+    {
+     "nom": "poireau",
+     "qte": "1"
+    },
+    {
+     "nom": "carotte",
+     "qte": "1"
+    },
+    {
+     "nom": "œufs",
+     "qte": "2"
+    },
+    {
+     "nom": "dés de jambon",
+     "qte": "100 g"
+    },
+    {
+     "nom": "petits pois surgelés",
+     "qte": "100 g"
+    },
+    {
+     "nom": "sauce soja",
+     "qte": "2 c. à soupe"
+    },
+    {
+     "nom": "huile",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Râper le chou-fleur en grains (râpe ou mixeur par à-coups).",
+    "Faire sauter poireau émincé et carotte en dés 4 min au wok.",
+    "Ajouter le chou-fleur et les petits pois, 5 min à feu vif.",
+    "Brouiller les œufs dedans, ajouter jambon et sauce soja."
+   ],
+   "attention": "Jambon : vérifier l'étiquette (lactose, caséinate, lactosérum).",
+   "source": null
+  },
+  {
+   "id": "r8",
+   "titre": "Papillote de cabillaud au fenouil et citron",
+   "temps": 25,
+   "categorie": "poisson",
+   "legumes": [
+    "fenouil"
+   ],
+   "ingredients": [
+    {
+     "nom": "filets de cabillaud",
+     "qte": "2"
+    },
+    {
+     "nom": "fenouil",
+     "qte": "1"
+    },
+    {
+     "nom": "citron",
+     "qte": "1"
+    },
+    {
+     "nom": "aneth ou persil",
+     "qte": "quelques brins"
+    },
+    {
+     "nom": "pommes de terre grenaille",
+     "qte": "400 g"
+    },
+    {
+     "nom": "huile d'olive",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Préchauffer le four à 200 °C, cuire les grenailles coupées en deux 10 min au micro-ondes.",
+    "Émincer finement le fenouil, le répartir sur 2 feuilles de papier cuisson.",
+    "Poser le poisson, rondelles de citron, herbes, huile, sel, poivre. Fermer.",
+    "Enfourner 15 min avec les pommes de terre à côté."
+   ],
+   "attention": "Choisir du cabillaud MSC ou du lieu noir, plus durable.",
+   "source": null
+  },
+  {
+   "id": "r9",
+   "titre": "Pâtes aux blettes, ail et noix",
+   "temps": 20,
+   "categorie": "vegan",
+   "legumes": [
+    "blette"
+   ],
+   "ingredients": [
+    {
+     "nom": "pâtes",
+     "qte": "200 g"
+    },
+    {
+     "nom": "blettes",
+     "qte": "1 botte"
+    },
+    {
+     "nom": "ail",
+     "qte": "2 gousses"
+    },
+    {
+     "nom": "cerneaux de noix",
+     "qte": "40 g"
+    },
+    {
+     "nom": "citron",
+     "qte": "1/2"
+    },
+    {
+     "nom": "piment d'Espelette",
+     "placard": true
+    },
+    {
+     "nom": "huile d'olive",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Cuire les pâtes.",
+    "Séparer côtes et feuilles des blettes. Émincer les côtes et les faire revenir 6 min à l'huile avec l'ail.",
+    "Ajouter les feuilles émincées, 2 min.",
+    "Mélanger aux pâtes avec noix grillées, zeste de citron, piment et un filet d'huile d'olive."
+   ],
+   "attention": "Pas de parmesan pendant la restriction : la noix et le citron le remplacent.",
+   "source": null
+  },
+  {
+   "id": "r10",
+   "titre": "Poêlée de chou vert, carottes et saucisse fumée",
+   "temps": 25,
+   "categorie": "viande",
+   "legumes": [
+    "chou",
+    "carotte",
+    "oignon"
+   ],
+   "ingredients": [
+    {
+     "nom": "chou vert",
+     "qte": "1/2"
+    },
+    {
+     "nom": "carottes",
+     "qte": "2"
+    },
+    {
+     "nom": "oignon",
+     "qte": "1"
+    },
+    {
+     "nom": "saucisse fumée (Morteau ou Montbéliard)",
+     "qte": "1"
+    },
+    {
+     "nom": "moutarde à l'ancienne",
+     "qte": "1 c. à soupe"
+    },
+    {
+     "nom": "huile",
+     "placard": true
+    }
+   ],
+   "etapes": [
+    "Émincer finement le chou, couper les carottes en rondelles fines.",
+    "Faire revenir l'oignon, ajouter chou et carottes avec un fond d'eau, couvrir 12 min.",
+    "Ajouter la saucisse en rondelles, 8 min à couvert.",
+    "Lier avec la moutarde."
+   ],
+   "attention": "Saucisse : vérifier l'étiquette, certaines contiennent du lactose ou des protéines de lait.",
+   "source": null
+  }
+ ]
+}

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Panier de saison</title>
+<meta name="description" content="10 recettes rapides de saison chaque jeudi, avec liste de courses.">
+<meta name="theme-color" content="#24302a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : bandeau "ardoise du primeur" en tête, puis colonne de recettes + liste de courses collante à droite (empilée sur mobile) */
+:root{
+  --bg:#f3f5f0; --surface:#ffffff; --ink:#1c2419; --muted:#5d6858; --line:#d9dfd3;
+  --beet:#8f1f4b; --beet-soft:#f6e6ec; --leek:#3d6b34; --leek-soft:#e5efdf;
+  --pumpkin:#c96a12; --pumpkin-soft:#fbeedd; --slate:#24302a; --slate-ink:#eef2ea;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121611; --surface:#1a2018; --ink:#e7ece3; --muted:#9aa694; --line:#2c3529;
+  --beet:#e77ea5; --beet-soft:#3a1a27; --leek:#8fc57f; --leek-soft:#1f2e1b;
+  --pumpkin:#f0a457; --pumpkin-soft:#3a2711; --slate:#0b0f0c; --slate-ink:#e7ece3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121611; --surface:#1a2018; --ink:#e7ece3; --muted:#9aa694; --line:#2c3529;
+  --beet:#e77ea5; --beet-soft:#3a1a27; --leek:#8fc57f; --leek-soft:#1f2e1b;
+  --pumpkin:#f0a457; --pumpkin-soft:#3a2711; --slate:#0b0f0c; --slate-ink:#e7ece3; color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--slate)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body)}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--beet);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* Ardoise */
+.slate{background:var(--slate);color:var(--slate-ink)}
+.slate .wrap{padding-block:28px 24px;display:grid;gap:18px}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.slate h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.02em;margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;border:1px solid transparent}
+.pill.dairy{background:var(--pumpkin-soft);color:var(--pumpkin)}
+.pill.ok{background:var(--leek-soft);color:var(--leek)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.season{display:grid;gap:10px}
+.season-row{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.season-row b{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;opacity:.7;width:68px;flex:none}
+.tag{font-size:13px;padding:3px 9px;border-radius:4px;border:1px dashed color-mix(in srgb,var(--slate-ink) 40%,transparent)}
+
+/* Corps */
+main .wrap{padding-block:28px 56px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+@media (max-width:900px){main .wrap{grid-template-columns:minmax(0,1fr)}}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin-bottom:14px}
+.sec-head h2{font-size:24px;font-weight:700}
+.sub{color:var(--muted);font-size:13px}
+select.week{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px}
+
+.recipes{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.on{border-color:var(--leek);box-shadow:inset 0 0 0 1px var(--leek)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.time{font:500 13px/1 var(--f-mono);color:var(--beet);background:var(--beet-soft);padding:5px 8px;border-radius:4px}
+.kind{font-size:12px;color:var(--muted)}
+.card h3{font-size:18px;font-weight:700}
+.vegs{display:flex;flex-wrap:wrap;gap:5px}
+.veg{font-size:12px;background:var(--leek-soft);color:var(--leek);padding:2px 8px;border-radius:999px}
+.warn{font-size:13px;color:var(--pumpkin);background:var(--pumpkin-soft);padding:6px 9px;border-radius:5px}
+details{border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;font-size:14px}
+details ul,details ol{margin:8px 0 0;padding-left:20px;font-size:14px}
+details li{margin-bottom:3px}
+.links{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px}
+.links a{color:var(--beet);font-weight:600}
+.card-actions{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 12px;font-size:14px;font-weight:600}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--leek);border-color:var(--leek);color:var(--surface)}
+.btn.ghost{border-color:transparent;color:var(--muted);font-weight:500}
+.btn[disabled]{opacity:.55;cursor:progress}
+
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted)}
+.empty h3{color:var(--ink);font-size:18px;margin-bottom:6px}
+
+aside{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));display:grid;gap:16px}
+@media (max-width:900px){aside{position:static}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
+.panel h2{font-size:19px;margin-bottom:4px}
+.list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:2px}
+.list li label{display:flex;gap:10px;align-items:flex-start;padding:5px 0;cursor:pointer;font-size:14px}
+.list li label.done span{text-decoration:line-through;color:var(--muted)}
+.list input{margin-top:3px;accent-color:var(--leek)}
+.qty{color:var(--muted);font-family:var(--f-mono);font-size:12px}
+.panel .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.field{display:grid;gap:4px;margin-top:12px;font-size:13px;color:var(--muted)}
+.field input{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;color:var(--ink)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:6px;font-size:14px;z-index:9}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+</head>
+<body>
+
+<header class="slate">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="eyebrow" id="weekLabel">Semaine —</div>
+        <h1>Panier de saison</h1>
+      </div>
+      <span class="pill dairy" id="dairyPill"><span class="dot"></span><span id="dairyText">Chargement des réglages…</span></span>
+    </div>
+    <div class="season" id="season"></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section>
+      <div class="sec-head">
+        <div>
+          <h2>Les 10 recettes de la semaine</h2>
+          <div class="sub" id="weekSub">Moins de 30 minutes, légumes de saison.</div>
+        </div>
+        <select class="week" id="weekSelect" aria-label="Choisir une semaine" hidden></select>
+      </div>
+      <div id="recipes" class="recipes">
+        <div class="empty" style="grid-column:1/-1">
+          <h3>Les recettes arrivent</h3>
+          Chaque jeudi matin, 10 idées rapides avec les légumes du mois apparaissent ici et tu reçois une notification.
+        </div>
+      </div>
+    </section>
+
+    <aside>
+      <div class="panel">
+        <h2>Liste de courses</h2>
+        <div class="sub" id="listSub">Coche « Je la fais » sur une recette pour remplir la liste.</div>
+        <ul class="list" id="shopping"></ul>
+        <div class="row" id="listActions" hidden>
+          <button class="btn" id="copyList">Copier la liste</button>
+          <button class="btn ghost" id="clearChecked">Décocher tout</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Réglages</h2>
+        <p class="note" id="cfgText">Chargement…</p>
+        <p class="note">Pour changer la date ou le nombre de personnes, modifie <span class="mono">data/config.json</span> dans le dépôt, ou demande-le à Claude.</p>
+        <p class="note">Notification chaque jeudi vers 7 h 50 sur ton téléphone, avec 10 recettes de moins de 30 minutes. Après la date, le lait revient automatiquement.</p>
+        <p class="note">À surveiller pendant la restriction : beurre, crème, fromage, lactosérum, caséine, caséinate, « protéines de lait » sur les étiquettes (charcuterie, pain de mie, biscuits, plats préparés).</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const SEASON = {
+  1:{l:["betterave","carotte","céleri-rave","chou","chou de Bruxelles","endive","épinard","mâche","navet","panais","poireau","potiron","salsifis","topinambour"],f:["citron","clémentine","kiwi","orange","pamplemousse","poire","pomme"]},
+  2:{l:["betterave","carotte","céleri-rave","chou","chou de Bruxelles","endive","épinard","mâche","navet","panais","poireau","salsifis","topinambour"],f:["citron","clémentine","kiwi","orange","pamplemousse","poire","pomme"]},
+  3:{l:["betterave","carotte","céleri-rave","chou","endive","épinard","mâche","navet","panais","poireau","radis","salsifis","topinambour"],f:["citron","kiwi","orange","pamplemousse","poire","pomme"]},
+  4:{l:["asperge","betterave","blette","carotte nouvelle","chou-fleur","épinard","laitue","navet","oignon nouveau","petits pois","poireau","radis"],f:["kiwi","pamplemousse","pomme","rhubarbe"]},
+  5:{l:["artichaut","asperge","betterave","blette","carotte","concombre","épinard","fève","laitue","navet","petits pois","radis","oignon nouveau"],f:["cerise","fraise","rhubarbe"]},
+  6:{l:["artichaut","aubergine","betterave","blette","carotte","concombre","courgette","fenouil","haricot vert","laitue","petits pois","poivron","radis","tomate"],f:["abricot","cerise","fraise","framboise","melon","rhubarbe"]},
+  7:{l:["aubergine","betterave","blette","brocoli","carotte","concombre","courgette","fenouil","haricot vert","laitue","maïs","poivron","radis","tomate"],f:["abricot","cassis","cerise","figue","framboise","groseille","melon","myrtille","nectarine","pastèque","pêche"]},
+  8:{l:["aubergine","betterave","blette","brocoli","carotte","concombre","courgette","fenouil","haricot vert","laitue","maïs","poivron","tomate"],f:["figue","framboise","melon","mirabelle","mûre","myrtille","nectarine","pêche","poire","prune","raisin"]},
+  9:{l:["aubergine","betterave","blette","brocoli","carotte","céleri","chou","courge","courgette","épinard","fenouil","haricot vert","poireau","poivron","potiron","tomate"],f:["figue","melon","mirabelle","mûre","noisette","poire","pomme","prune","quetsche","raisin"]},
+  10:{l:["betterave","blette","brocoli","carotte","céleri","champignons","chou","chou-fleur","courge butternut","épinard","fenouil","navet","panais","poireau","potimarron","potiron","radis noir","topinambour"],f:["châtaigne","coing","figue","noix","poire","pomme","raisin"]},
+  11:{l:["betterave","brocoli","carotte","céleri","chou","chou de Bruxelles","chou-fleur","courge","endive","épinard","mâche","navet","panais","poireau","potiron","salsifis","topinambour"],f:["châtaigne","clémentine","coing","kiwi","noix","poire","pomme"]},
+  12:{l:["betterave","carotte","céleri-rave","chou","chou de Bruxelles","endive","épinard","mâche","navet","panais","poireau","potiron","salsifis","topinambour"],f:["clémentine","kiwi","mandarine","orange","poire","pomme"]}
+};
+const MONTHS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+function isoWeek(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y=t.getUTCFullYear();const w=Math.ceil(((t-Date.UTC(y,0,1))/864e5+1)/7);return y+"-W"+pad(w)}
+function frDate(s,opts){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("fr-FR",opts||{day:"numeric",month:"long"})}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2400)}
+
+const today=new Date();
+const state={config:null,weeks:[],current:null,courses:{choisies:[],coches:[]}};
+
+/* Saison du mois */
+(function renderSeason(){
+  const s=SEASON[today.getMonth()+1];
+  $("#season").innerHTML=
+    `<div class="season-row"><b>Légumes</b>${s.l.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>`+
+    `<div class="season-row"><b>Fruits</b>${s.f.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>`;
+  $("#weekLabel").textContent=`${isoWeek(today).replace("-W"," · semaine ")} · de saison en ${MONTHS[today.getMonth()]}`;
+})();
+
+function dairyActive(){const u=state.config?.sansLaitJusquau;return !!u && ymd(today)<=u}
+function renderConfig(){
+  const c=state.config||{};
+  const pill=$("#dairyPill");
+  if(dairyActive()){
+    const [y,m,d]=c.sansLaitJusquau.split("-").map(Number);
+    const days=Math.round((new Date(y,m-1,d)-new Date(today.getFullYear(),today.getMonth(),today.getDate()))/864e5);
+    pill.className="pill dairy";
+    $("#dairyText").textContent=`Sans protéine de lait jusqu'au ${frDate(c.sansLaitJusquau)} · encore ${days+1} j`;
+  }else{
+    pill.className="pill ok";
+    $("#dairyText").textContent=c.sansLaitJusquau?"Lait autorisé (restriction terminée)":"Aucune restriction alimentaire";
+  }
+  $("#cfgText").textContent=`${c.sansLaitJusquau?`Sans protéine de lait jusqu'au ${frDate(c.sansLaitJusquau,{day:"numeric",month:"long",year:"numeric"})} inclus`:"Pas de restriction"} · ${c.personnes||2} personnes · ${c.tempsMax||30} min maximum.`;
+}
+
+function searchLinks(t){
+  const q=encodeURIComponent(t);
+  return `<a href="https://www.marmiton.org/recettes/recherche.aspx?aqt=${q}" target="_blank" rel="noopener">Variantes Marmiton</a>`+
+         `<a href="https://www.750g.com/recherche/?q=${q}" target="_blank" rel="noopener">750g</a>`;
+}
+function safeUrl(u){return /^https:\/\//.test(u||"")?u:""}
+
+function renderRecipes(){
+  const box=$("#recipes"), w=state.current;
+  if(!w||!w.recettes?.length){
+    box.innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>Pas encore de recettes</h3>Chaque jeudi matin, 10 idées rapides avec les légumes du mois apparaissent ici et tu reçois une notification.</div>`;
+    $("#weekSub").textContent="Moins de 30 minutes, légumes de saison.";
+    return;
+  }
+  $("#weekSub").textContent=`Proposées le ${frDate(w.dateDebut,{weekday:"long",day:"numeric",month:"long"})} · ${w.sansLait?"sans protéine de lait":"sans restriction"} · pour ${w.personnes||2} pers.`;
+  const chosen=new Set(state.courses.choisies||[]);
+  box.innerHTML=w.recettes.map(r=>{const src=safeUrl(r.source?.url);return `
+    <article class="card ${chosen.has(r.id)?"on":""}" data-id="${esc(r.id)}">
+      <div class="card-top"><span class="time">${esc(r.temps)} min</span><span class="kind">${esc(r.categorie||"")}</span></div>
+      <h3>${esc(r.titre)}</h3>
+      <div class="vegs">${(r.legumes||[]).map(v=>`<span class="veg">${esc(v)}</span>`).join("")}</div>
+      ${r.attention?`<div class="warn">${esc(r.attention)}</div>`:""}
+      <details>
+        <summary>Ingrédients et étapes</summary>
+        <ul>${(r.ingredients||[]).map(g=>`<li>${esc(g.qte?g.qte+" ":"")}${esc(g.nom)}</li>`).join("")}</ul>
+        <ol>${(r.etapes||[]).map(e=>`<li>${esc(e)}</li>`).join("")}</ol>
+      </details>
+      <div class="links">${src?`<a href="${esc(src)}" target="_blank" rel="noopener">Recette source · ${esc(r.source.nom)}</a>`:""}${searchLinks(r.titre)}</div>
+      <div class="card-actions">
+        <button class="btn ${chosen.has(r.id)?"primary":""}" data-act="toggle">${chosen.has(r.id)?"Au menu ✓":"Je la fais"}</button>
+      </div>
+    </article>`}).join("");
+}
+
+function shoppingItems(){
+  const w=state.current; if(!w) return [];
+  const chosen=new Set(state.courses.choisies||[]); const map=new Map();
+  for(const r of w.recettes||[]) if(chosen.has(r.id)) for(const g of r.ingredients||[]){
+    if(g.placard) continue;
+    const k=g.nom.toLowerCase().trim();
+    const it=map.get(k)||{key:k,nom:g.nom,qtes:[]};
+    if(g.qte) it.qtes.push(g.qte); map.set(k,it);
+  }
+  return [...map.values()].sort((a,b)=>a.nom.localeCompare(b.nom,"fr"));
+}
+function renderShopping(){
+  const items=shoppingItems(), done=new Set(state.courses.coches||[]);
+  const n=(state.courses.choisies||[]).length;
+  const left=items.filter(i=>!done.has(i.key)).length;
+  $("#listSub").textContent=n?`${n} recette${n>1?"s":""} au menu · ${left} article${left>1?"s":""} à prendre (hors placard)`:"Coche « Je la fais » sur une recette pour remplir la liste.";
+  $("#shopping").innerHTML=items.map((it,i)=>`<li><label class="${done.has(it.key)?"done":""}" for="sh${i}"><input type="checkbox" id="sh${i}" data-key="${esc(it.key)}" ${done.has(it.key)?"checked":""}><span>${esc(it.nom)} ${it.qtes.length?`<span class="qty">${esc(it.qtes.join(" + "))}</span>`:""}</span></label></li>`).join("");
+  $("#listActions").hidden=!items.length;
+}
+
+/* Liste de courses : gardée sur cet appareil */
+const LS="panier:courses:";
+function loadCourses(id){try{const v=JSON.parse(localStorage.getItem(LS+id)||"null");if(v&&Array.isArray(v.choisies))return{choisies:v.choisies,coches:v.coches||[]}}catch{}return{choisies:[],coches:[]}}
+function saveCourses(){if(!state.current)return;try{localStorage.setItem(LS+state.current.id,JSON.stringify(state.courses))}catch{}}
+
+function renderWeeks(){
+  const sel=$("#weekSelect");
+  sel.hidden=state.weeks.length<2;
+  sel.innerHTML=state.weeks.map(id=>`<option value="${esc(id)}" ${id===state.current?.id?"selected":""}>${esc(id.replace("-W"," · sem. "))}</option>`).join("");
+}
+async function selectWeek(id){
+  if(!id){state.current=null;renderWeeks();renderRecipes();renderShopping();return}
+  try{
+    const r=await fetch(`data/semaines/${encodeURIComponent(id)}.json`,{cache:"no-cache"});
+    if(!r.ok) throw 0;
+    state.current={id,...await r.json()};
+  }catch{toast("Impossible de charger cette semaine.");return}
+  state.courses=loadCourses(id);
+  renderWeeks(); renderRecipes(); renderShopping();
+}
+
+$("#recipes").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-act=toggle]"); if(!b) return;
+  const id=b.closest(".card").dataset.id;
+  const s=new Set(state.courses.choisies); s.has(id)?s.delete(id):s.add(id);
+  state.courses={...state.courses,choisies:[...s]}; renderRecipes(); renderShopping(); saveCourses();
+});
+$("#shopping").addEventListener("change",e=>{
+  const k=e.target.dataset.key; if(!k) return;
+  const s=new Set(state.courses.coches); e.target.checked?s.add(k):s.delete(k);
+  state.courses={...state.courses,coches:[...s]}; renderShopping(); saveCourses();
+});
+$("#clearChecked").onclick=()=>{state.courses={...state.courses,coches:[]};renderShopping();saveCourses()};
+$("#copyList").onclick=async()=>{
+  const done=new Set(state.courses.coches);
+  const txt=shoppingItems().filter(i=>!done.has(i.key)).map(i=>"- "+i.nom+(i.qtes.length?" ("+i.qtes.join(" + ")+")":"")).join("\n");
+  try{await navigator.clipboard.writeText(txt);toast("Liste copiée")}catch{toast("Copie refusée par ce navigateur")}
+};
+$("#weekSelect").onchange=e=>selectWeek(e.target.value);
+
+/* Données : fichiers JSON du dépôt */
+(async()=>{
+  try{const r=await fetch("data/config.json",{cache:"no-cache"});state.config=r.ok?await r.json():{}}catch{state.config={}}
+  renderConfig();
+  try{
+    const r=await fetch("data/semaines/index.json",{cache:"no-cache"});
+    state.weeks=(r.ok?await r.json():[]).slice().sort().reverse();
+  }catch{state.weeks=[]}
+  await selectWeek(state.weeks[0]);
+})();
+</script>
+</body>
+</html>
