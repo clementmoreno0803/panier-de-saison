@@ -249,16 +249,52 @@ function renderRecipes(){
     </article>`}).join("");
 }
 
+/* Additionne les quantités d'un même ingrédient entre recettes : "1 gousse" + "2 gousses" → "3 gousses", "125 g" + "400 g" → "525 g" */
+const singular=s=>s.toLowerCase().trim().replace(/\s+/g," ").split(" ").map(w=>w.length>3&&!w.endsWith(".")?w.replace(/[sx]$/,""):w).join(" ");
+const UNITS={g:["g",1],gr:["g",1],kg:["g",1000],mg:["g",.001],ml:["cl",.1],cl:["cl",1],dl:["cl",10],l:["cl",100]};
+function parseQte(q){
+  const m=String(q).trim().replace(/,/g,".").match(/^(\d+(?:\.\d+)?)(?:\s+(\d+)\/(\d+)|\/(\d+))?\s*(.*)$/);
+  if(!m||(m[4]&&!+m[4])||(m[3]&&!+m[3])) return null;
+  let n=+m[1]; if(m[4]) n/=+m[4]; if(m[2]) n+=m[2]/m[3];
+  const unit=m[5].trim(), u=UNITS[unit.toLowerCase()];
+  if(u) return {key:u[0],n:n*u[1],metric:u[0]};
+  return {key:singular(unit),n,unit};
+}
+const FRAC={.25:"1/4",.5:"1/2",.75:"3/4",.33:"1/3",.67:"2/3"};
+function fmtNum(n){
+  n=Math.round(n*100)/100; const i=Math.floor(n), f=Math.round((n-i)*100)/100;
+  if(FRAC[f]) return (i?i+" ":"")+FRAC[f];
+  return String(n).replace(".",",");
+}
+function plural(unit,n){
+  if(n<=1||!unit||unit.startsWith("(")) return unit;
+  const [w,...rest]=unit.split(" ");
+  return [w.length>2&&!/[sx.]$/.test(w)?w+"s":w,...rest].join(" ");
+}
+function fmtQte(t){
+  if(t.metric==="g") return t.n>=1000?fmtNum(t.n/1000)+" kg":fmtNum(t.n)+" g";
+  if(t.metric==="cl") return t.n>=100?fmtNum(t.n/100)+" l":fmtNum(t.n)+" cl";
+  return (fmtNum(t.n)+" "+plural(t.unit,t.n)).trim();
+}
 function shoppingItems(){
   const w=state.current; if(!w) return [];
   const chosen=new Set(state.courses.choisies||[]); const map=new Map();
   for(const r of w.recettes||[]) if(chosen.has(r.id)) for(const g of r.ingredients||[]){
     if(g.placard) continue;
-    const k=g.nom.toLowerCase().trim();
-    const it=map.get(k)||{key:k,nom:g.nom,qtes:[]};
-    if(g.qte) it.qtes.push(g.qte); map.set(k,it);
+    const k=singular(g.nom);
+    const it=map.get(k)||{key:k,noms:[],totaux:new Map(),autres:[]};
+    if(!it.noms.includes(g.nom)) it.noms.push(g.nom);
+    const p=g.qte&&parseQte(g.qte);
+    if(p){const t=it.totaux.get(p.key); t?t.n+=p.n:it.totaux.set(p.key,{...p})}
+    else if(g.qte) it.autres.push(g.qte);
+    map.set(k,it);
   }
-  return [...map.values()].sort((a,b)=>a.nom.localeCompare(b.nom,"fr"));
+  return [...map.values()].map(it=>{
+    const totaux=[...it.totaux.values()];
+    const many=totaux.some(t=>t.n>1);
+    const nom=(many&&it.noms.find(n=>/[sx]$/i.test(n)))||it.noms[0];
+    return {key:it.key,nom,qtes:[...totaux.map(fmtQte),...it.autres]};
+  }).sort((a,b)=>a.nom.localeCompare(b.nom,"fr"));
 }
 function renderShopping(){
   const items=shoppingItems(), done=new Set(state.courses.coches||[]);
